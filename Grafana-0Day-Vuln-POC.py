@@ -65,9 +65,10 @@ def grafana_vuln_poc(url):
 
         if "root:x" in context.decode('utf-8') and code == 200:
             print("*************************** 发现可利用的漏洞 ***************************")
-            print("payload：" + pyload)
+            print("Payload：" + pyload)
             print("返回值：" + context.decode('utf-8')[:32])
             vuln_url.append(url)
+            break # 只要有一个pyload测试成功，便执行下一个URL测试
 
 if __name__ == '__main__':
 
