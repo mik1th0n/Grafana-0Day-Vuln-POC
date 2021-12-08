@@ -21,7 +21,7 @@
 - 建议及时通过网络/安全设备设置黑白名单策略，非必要不暴露在外网。
 - 等待官方补丁进行升级
 
-![image-20211208220325089](./README.assets/image-20211208220325089.png)
+![image-20211208220325089](https://s4.ax1x.com/2021/12/08/oWuNpn.png)
 
 ### 2 FOFA查询
 
@@ -31,7 +31,7 @@
 "grafana" && country="CN" && status_code="200"
 ```
 
-![image-20211208220359711](./README.assets/image-20211208220359711.png)
+![image-20211208220359711](https://s4.ax1x.com/2021/12/08/oWuGkQ.png)
 
 ### 3 POC使用方法
 
@@ -43,9 +43,9 @@
 python3 Grafana-0Day-Vuln-POC.py
 ```
 
-![image-20211208220442378](./README.assets/image-20211208220442378.png)
+![image-20211208220442378](https://s4.ax1x.com/2021/12/08/oWuYfs.png)
 
-![image-20211208220531940](./README.assets/image-20211208220531940.png)
+![image-20211208220531940](https://s4.ax1x.com/2021/12/08/oWu3Tg.png)
 
 ### 4 参考链接
 
